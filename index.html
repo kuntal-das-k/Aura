@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether Flow Pro | Made by Kuntal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00f2ff;
+            --accent-glow: rgba(0, 242, 255, 0.4);
+            --glass: rgba(255, 255, 255, 0.08);
+            --bg: #020205;
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: var(--bg); color: white; 
+            font-family: 'Inter', sans-serif; overflow: hidden; 
+        }
+
+        /* --- Signature Line --- */
+        .credit-line {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.5);
+            background: var(--glass);
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+        .credit-line b { color: var(--accent); font-weight: 800; }
+
+        /* --- Page Transitions --- */
+        .page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            transition: opacity 1s ease, visibility 1s;
+            display: flex; flex-direction: column;
+        }
+        .hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        /* --- Intro Page Styling --- */
+        #intro-page {
+            justify-content: center; align-items: center; text-align: center;
+            background: radial-gradient(circle at center, #0a0a1a 0%, #020205 100%);
+            z-index: 20;
+        }
+
+        #intro-page::before {
+            content: ''; position: absolute; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3; pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 5rem; font-weight: 800; letter-spacing: -3px; margin: 0;
+            background: linear-gradient(to bottom, #fff 40%, var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem; color: #aaa; margin: 20px 0 50px; font-weight: 300; letter-spacing: 2px;
+        }
+
+        .guide-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            max-width: 900px; margin-bottom: 60px; padding: 0 20px;
+        }
+
+        .guide-card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            padding: 25px; border-radius: 20px; backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .guide-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .guide-card h3 { color: var(--accent); margin-top: 0; }
+        .guide-card p { font-size: 0.85rem; color: #888; line-height: 1.6; }
+
+        .launch-btn {
+            padding: 20px 60px; font-size: 1.1rem; font-weight: 700;
+            background: var(--accent); color: #000; border: none;
+            border-radius: 50px; cursor: pointer; letter-spacing: 2px;
+            box-shadow: 0 0 30px var(--accent-glow); transition: all 0.3s;
+        }
+
+        .launch-btn:hover { 
+            transform: scale(1.05); background: #fff; box-shadow: 0 0 50px white; 
+        }
+
+        /* --- Main App UI Styling --- */
+        #app-ui {
+            position: fixed; top: 20px; left: 20px; z-index: 10;
+            padding: 25px; background: var(--glass); backdrop-filter: blur(20px);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            width: 280px; pointer-events: auto;
+        }
+
+        #app-ui h2 { margin: 0; font-size: 1.2rem; letter-spacing: 3px; color: var(--accent); }
+        #status { font-size: 0.7rem; margin: 10px 0; letter-spacing: 1px; color: #aaa; text-transform: uppercase; }
+        
+        .gesture-hint {
+            font-size: 0.75rem; color: #00f2ff; background: rgba(0, 242, 255, 0.1);
+            padding: 12px; border-radius: 12px; margin-top: 15px; line-height: 1.6;
+        }
+
+        #video-preview {
+            position: fixed; bottom: 20px; right: 20px; width: 180px; height: 135px;
+            border: 2px solid var(--accent); border-radius: 15px;
+            transform: scaleX(-1); background: #111; z-index: 5;
+            object-fit: cover; opacity: 0.6; transition: 0.3s;
+        }
+        #video-preview:hover { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .guide-grid { grid-template-columns: 1fr; }
+            .credit-line { bottom: 10px; left: 10px; font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="credit-line">Made by <b>Kuntal</b></div>
+
+    <section id="intro-page" class="page">
+        <h1 class="hero-title">ETHER FLOW</h1>
+        <p class="hero-subtitle">BENDING LIGHT WITH YOUR BARE HANDS</p>
+        
+        <div class="guide-grid">
+            <div class="guide-card">
+                <h3>VIRTUAL TOUCH</h3>
+                <p>Advanced Vision AI maps your hand in 3D space. Your palm acts as a gravitational anchor for 12,000 light particles.</p>
+            </div>
+            <div class="guide-card">
+                <h3>SHAPE MORPHING</h3>
+                <p>Switch between the Sphere, Heart, Saturn, and Flower templates using finger count gestures (2-5 fingers).</p>
+            </div>
+            <div class="guide-card">
+                <h3>PINCH SCALE</h3>
+                <p>Pinch your thumb and index finger together to collapse the ether, or spread them apart to expand the universe.</p>
+            </div>
+        </div>
+
+        <button id="launch-btn" class="launch-btn">ENTER THE VOID</button>
+        <p style="font-size: 0.7rem; color: #444; margin-top: 30px;">REQUIRES CAMERA ACCESS • AI PROCESSED LOCALLY</p>
+    </section>
+
+    <section id="app-page" class="page hidden">
+        <div id="app-ui">
+            <h2>ETHER FLOW PRO</h2>
+            <div id="status">INITIALIZING AI...</div>
+            <div class="gesture-hint">
+                🖐 <b>5 Fingers:</b> Sphere<br>
+                ✌ <b>2 Fingers:</b> Heart<br>
+                🤟 <b>3 Fingers:</b> Saturn<br>
+                🖖 <b>4 Fingers:</b> Flower<br>
+                🤏 <b>Pinch:</b> Scale Cosmos
+            </div>
+        </div>
+        <video id="video-preview" autoplay playsinline muted></video>
+    </section>
+
+    <script type="module">
+        import * as THREE from 'https://esm.sh/three@0.160.0';
+        import { HandLandmarker, FilesetResolver } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14';
+
+        const introPage = document.getElementById('intro-page');
+        const appPage = document.getElementById('app-page');
+        const launchBtn = document.getElementById('launch-btn');
+        const statusEl = document.getElementById('status');
+        const video = document.getElementById('video-preview');
+
+        let isAppStarted = false;
+        let handLandmarker;
+        let handPos = { x: 0, y: 0, active: false, scale: 1, hue: 180 };
+
+        launchBtn.onclick = () => {
+            introPage.classList.add('hidden');
+            appPage.classList.remove('hidden');
+            if(!isAppStarted) startApplication();
+        };
+
+        function startApplication() {
+            isAppStarted = true;
+            
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            appPage.appendChild(renderer.domElement);
+            camera.position.z = 30;
+
+            const PARTICLE_COUNT = 12000;
+            const geo = new THREE.BufferGeometry();
+            const positions = new Float32Array(PARTICLE_COUNT * 3);
+            const targets = new Float32Array(PARTICLE_COUNT * 3);
+            const colors = new Float32Array(PARTICLE_COUNT * 3);
+            
+            for(let i=0; i<PARTICLE_COUNT*3; i++) {
+                positions[i] = (Math.random() - 0.5) * 80;
+                targets[i] = positions[i];
+            }
+            
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const mat = new THREE.PointsMaterial({ 
+                size: 0.08, vertexColors: true, transparent: true, 
+                blending: THREE.AdditiveBlending, opacity: 0.8
+            });
+            const points = new THREE.Points(geo, mat);
+            scene.add(points);
+
+            const updateShape = (type) => {
+                for(let i=0; i<PARTICLE_COUNT; i++) {
+                    const i3 = i * 3;
+                    const t = Math.random() * Math.PI * 2;
+                    const u = Math.random() * 2 - 1;
+                    if(type === 'sphere') {
+                        targets[i3] = 11 * Math.sqrt(1-u*u)*Math.cos(t);
+                        targets[i3+1] = 11 * Math.sqrt(1-u*u)*Math.sin(t);
+                        targets[i3+2] = 11 * u;
+                    } else if(type === 'heart') {
+                        const s = (i/PARTICLE_COUNT) * Math.PI * 2;
+                        targets[i3] = 0.75 * (16 * Math.pow(Math.sin(s), 3));
+                        targets[i3+1] = 0.75 * (13*Math.cos(s)-5*Math.cos(2*s)-2*Math.cos(3*s)-Math.cos(4*s));
+                        targets[i3+2] = (Math.random()-0.5)*4;
+                    } else if(type === 'saturn') {
+                        if(i < PARTICLE_COUNT*0.4) {
+                            targets[i3]=5*Math.sqrt(1-u*u)*Math.cos(t); targets[i3+1]=5*Math.sqrt(1-u*u)*Math.sin(t); targets[i3+2]=5*u;
+                        } else {
+                            const r=13+Math.random()*6; targets[i3]=r*Math.cos(t); targets[i3+1]=r*Math.sin(t)*0.2; targets[i3+2]=(Math.random()-0.5)*3;
+                        }
+                    } else { // Flower
+                        const r = 13 * Math.cos(5 * t); targets[i3] = r * Math.cos(t); targets[i3+1] = r * Math.sin(t); targets[i3+2] = u * 3;
+                    }
+                }
+            };
+            updateShape('sphere');
+
+            function countFingers(landmarks) {
+                let count = 0;
+                const tips = [8, 12, 16, 20];
+                tips.forEach(index => { if (landmarks[index].y < landmarks[index - 2].y) count++; });
+                if (landmarks[4].x < landmarks[3].x) count++;
+                return count;
+            }
+
+            async function startAI() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = stream;
+                    const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+                    handLandmarker = await HandLandmarker.createFromOptions(vision, {
+                        baseOptions: { 
+                            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task", 
+                            delegate: "GPU" 
+                        },
+                        runningMode: "VIDEO", numHands: 1
+                    });
+                    statusEl.innerText = "SYSTEM LIVE";
+                    detect();
+                } catch (err) {
+                    statusEl.innerText = "ERROR: CAMERA BLOCKED";
+                }
+            }
+
+            let lastFingerCount = -1;
+            function detect() {
+                if (handLandmarker && video.readyState >= 2) {
+                    const results = handLandmarker.detectForVideo(video, performance.now());
+                    if (results.landmarks && results.landmarks.length > 0) {
+                        const landmarks = results.landmarks[0];
+                        handPos.x += ((landmarks[9].x - 0.5) * -65 - handPos.x) * 0.15;
+                        handPos.y += ((landmarks[9].y - 0.5) * -50 - handPos.y) * 0.15;
+                        handPos.active = true;
+                        handPos.hue = (landmarks[9].x * 360);
+                        const pinch = Math.hypot(landmarks[4].x - landmarks[8].x, landmarks[4].y - landmarks[8].y);
+                        handPos.scale = THREE.MathUtils.mapLinear(pinch, 0.05, 0.4, 0.5, 3.5);
+                        const currentFingers = countFingers(landmarks);
+                        if(currentFingers !== lastFingerCount) {
+                            if(currentFingers === 5) updateShape('sphere');
+                            else if(currentFingers === 2) updateShape('heart');
+                            else if(currentFingers === 3) updateShape('saturn');
+                            else if(currentFingers === 4) updateShape('flower');
+                            lastFingerCount = currentFingers;
+                        }
+                    } else { handPos.active = false; }
+                }
+                requestAnimationFrame(detect);
+            }
+
+            function animate() {
+                const p = geo.attributes.position.array;
+                const c = geo.attributes.color.array;
+                const tempColor = new THREE.Color();
+                for(let i=0; i<PARTICLE_COUNT; i++) {
+                    const i3 = i * 3;
+                    const tScale = handPos.active ? handPos.scale : 1.0;
+                    p[i3] += (targets[i3] * tScale - p[i3]) * 0.09;
+                    p[i3+1] += (targets[i3+1] * tScale - p[i3+1]) * 0.09;
+                    p[i3+2] += (targets[i3+2] * tScale - p[i3+2]) * 0.09;
+                    if(handPos.active) {
+                        const dx = p[i3] - handPos.x, dy = p[i3+1] - handPos.y, d = Math.sqrt(dx*dx + dy*dy);
+                        if(d < 12) { p[i3] += dx * 0.08; p[i3+1] += dy * 0.08; }
+                        tempColor.setHSL((handPos.hue + i % 80) / 360, 0.8, 0.6);
+                    } else { tempColor.setHSL(0.5, 0.8, 0.4); }
+                    c[i3] = tempColor.r; c[i3+1] = tempColor.g; c[i3+2] = tempColor.b;
+                }
+                geo.attributes.position.needsUpdate = true;
+                geo.attributes.color.needsUpdate = true;
+                points.rotation.y += 0.002;
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            }
+
+            startAI();
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+    </script>
+</body>
+</html>
